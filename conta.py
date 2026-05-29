@@ -19,6 +19,7 @@ class Conta:
 
     def extrato(self):
         print(f'Saldo: {self.__saldo} do titular {self.__titular}') 
+        #Aqui é só um print, ou seja, uma mensagem.
 
     def depositar(self, valor):
         if(valor < 0):
@@ -38,6 +39,43 @@ class Conta:
         else:
             self.sacar(valor)
             conta_destino.depositar(valor)
-        
-    def inadimplentes(self, cliente):
-        pass
+
+    # Métodos get para retornar apenas os valores das propriedades.
+    # Get sempre tem um return.
+    
+    @property
+    def numero(self):
+        return self.__numero
+    
+    @property
+    def titular(self):
+        return self.__titular
+    
+    @property
+    def saldo(self):
+        return self.__saldo
+    # Decorador: serve para transformar em uma função 
+    # que não precisa ser chamada com parênteses.
+    # E não precisa mais de get
+
+    @property
+    def limite(self):
+        return self.__limite
+    
+    # Set não retorna algo, mas altera.
+    # Métodos para manipular os valores das propiedades
+    @limite.setter
+    def limite(self, limite):
+        self.__limite = limite
+
+    @titular.setter
+    def titular(self, titular):
+        self.__titular = titular
+
+    @numero.setter
+    def numero(self, numero):
+        self.__numero = numero
+
+    @saldo.setter
+    def saldo(self, saldo):
+        self.__saldo = saldo
