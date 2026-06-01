@@ -8,6 +8,7 @@ conta2 = Conta(555, "Luana", 100.0, 1000.0)
 #Apresenta erro:
 #conta1.__saldo
 
-print(conta1.numero)
+conta1.depositar(0)
+conta1.extrato
 #Ao printar, o PY mostra o endereço no computador onde está sendo salvo
 #Classes também recebem parâmetros
