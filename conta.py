@@ -11,7 +11,8 @@ class Conta:
         self.__numero = numero
         self.__titular = titular
         self.__saldo = saldo
-        self.__limite = limite 
+        self.__limite_especial = limite
+
     
     #Ao colocar 2 __ , significa que não é para ser alterado diretamente. 
     # Eles ficam privados para serem acessados pelos métodos.
@@ -22,16 +23,20 @@ class Conta:
         #Aqui é só um print, ou seja, uma mensagem.
 
     def depositar(self, valor):
-        if(valor < 0):
-            print(f'Não é possível depositar valores negativos')
+        if(valor <= 0):
+            print(f'Não é possível depositar valores negativos e nem nada.')
         else:
             self.__saldo += valor #saldo = saldo + valor
 
+    def saque_permitido(self, valor_saque):
+        valor_disponivel_saque = self.__saldo + self.__limite_especial
+        return valor_saque <= valor_disponivel_saque
+
     def sacar(self, valor):
-        if(self.__saldo < valor):
-            print(f'Não foi possível sacar este valor.')
-        else: 
+        if(self.saque_permitido(valor)):
             self.__saldo -= valor
+        else: 
+            print(f'O valor {valor} passou do limite.')
 
     def transferir(self, valor, conta_destino):
         if(self.__saldo < valor) or (valor < 0):
@@ -42,7 +47,7 @@ class Conta:
 
     # Métodos get para retornar apenas os valores das propriedades.
     # Get sempre tem um return.
-    
+    # Property serve para retornar um valor
     @property
     def numero(self):
         return self.__numero
@@ -60,13 +65,16 @@ class Conta:
 
     @property
     def limite(self):
-        return self.__limite
+        return self.__limite_especial
+    
+    # Método estático que é usado apenas pela classe
+    # e não depende do objeto (conta)
     
     # Set não retorna algo, mas altera.
     # Métodos para manipular os valores das propiedades
     @limite.setter
     def limite(self, limite):
-        self.__limite = limite
+        self.__limite_especial = limite
 
     @titular.setter
     def titular(self, titular):
@@ -79,3 +87,13 @@ class Conta:
     @saldo.setter
     def saldo(self, saldo):
         self.__saldo = saldo
+
+    @staticmethod
+    def codigo_banco():
+        return '001'
+    
+    @staticmethod
+    def codigos_banco():
+        return {'Banco do Brasil':'001',
+                'Caixa':'104', 
+                'Bradesco':'37'}
